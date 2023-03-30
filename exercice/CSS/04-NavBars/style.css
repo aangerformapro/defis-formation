@@ -43,11 +43,19 @@ nav img {
 
 /* Utilisez Flexbox pour résoudre ces problèmes liés aux Navbars. */
 
+#resultat nav {
+    display: flex;
+    align-items: center;
+}
+
+#resultat nav img[src*="logo_acs_noir"] {
+    filter: invert() contrast(60%);
+}
+
 /* Nav #1 */
 /* Centrer sur X */
 
 .nav-1 {
-    display: flex;
     justify-content: center;
 }
 
@@ -55,13 +63,9 @@ nav img {
 /* Nav #2 */
 /* Centrer sur Y et afficher les boutons à droite */
 
-.nav-2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.nav-2 a+.sign-in-btn {
+
+.nav-2 .sign-in-btn {
     margin: 0 1rem 0 auto;
 }
 
@@ -70,8 +74,6 @@ nav img {
 /* Nav #3 */
 /* Mettre l'icône à gauche et les liens à droite */
 .nav-3 {
-    display: flex;
-    align-items: center;
     justify-content: end;
 }
 
@@ -85,20 +87,19 @@ nav img {
 /* Mettre l'icône Saturne au milieu et les liens à gauche */
 
 .nav-4 {
-    display: flex;
-    align-items: center;
-    justify-content: left;
+    justify-content: end;
 }
+
+.nav-4 .empty-layout {
+    flex-grow: 2;
+}
+
 
 .nav-4 .links-container {
     flex-grow: 1;
-    max-width: 50%;
 }
 
-.links-container+a {
-    transform: translateX(-50%);
-}
-
-nav img[src*="logo_acs_noir"] {
-    filter: invert() contrast(60%);
+.nav-4 .logo-link {
+    flex-grow: 1;
+    /* transform: translateX(-50%);*/
 }
