@@ -1,8 +1,42 @@
-.square{
-  width: 150px;
-  height:150px;
-  background: black;
-  margin: auto;
+.square {
+    width: 150px;
+    height: 150px;
+    background: black;
+    margin: auto;
 }
 
 
+
+@media (min-width: 1200px) {
+    .square {
+        background: violet;
+    }
+}
+
+@media (max-width: 1200px) {
+    .square {
+        background: orange;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .square {
+        background: blue;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .square {
+        background: green;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .square {
+        background: red;
+    }
+
+}
