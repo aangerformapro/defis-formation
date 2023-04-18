@@ -1,0 +1,38 @@
+{
+    "name": "boss",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "sass": "sass --embed-sources ./src/index.scss:./tmp/bundle.css",
+        "sass:watch": "sass --embed-sources --watch ./src/index.scss:./tmp/bundle.css",
+        "postcss": "postcss tmp/bundle.css --verbose --map --output style.css",
+        "postcss:watch": "postcss tmp/bundle.css --map --watch --output style.css",
+        "watch:all": "run-p -n sass:watch postcss:watch"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version",
+            "last 1 ie version"
+        ]
+    },
+    "author": "",
+    "license": "ISC",
+    "private": true,
+    "devDependencies": {
+        "autoprefixer": "^10.4.14",
+        "npm-run-all": "^4.1.5",
+        "postcss-cli": "^10.1.0",
+        "postcss-combine-media-query": "^1.0.1",
+        "postcss-preset-env": "^8.3.0",
+        "postcss-remove-prefixes": "^1.2.0",
+        "sass": "^1.59.2"
+    }
+}
