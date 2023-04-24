@@ -57,14 +57,21 @@
 
         ];
 
-        for (let i in technos) {
-            technos[i] = technos[i].replaceAll('e', 'a').replaceAll('E', 'A');
-        }
+        // for (let i in technos) {
+        //     technos[i] = technos[i].replaceAll('e', 'a').replaceAll('E', 'A');
+        // }
 
 
-        target.innerHTML = technos.join(', ');
+        // target.innerHTML = technos.join(', ');
 
+        target.innerHTML = technos.map(str => {
+            return str.replaceAll('e', 'a')
+        }).join(', ');
 
+        // document.write(technos.map(str => {
+        //     //console.log("j'ai fait un tour !!!!");
+        //     return str.replaceAll('e', 'a')
+        // }).join(', '));
 
 
 
