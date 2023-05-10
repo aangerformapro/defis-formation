@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Défi JS - 15</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <script src="./utils.js"></script>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+
+            <div class="logo-acs"><img
+                    src="https://www.accesscodeschool.fr/wp-content/uploads/2018/10/logo_acs_noir.png"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+
+            <div class="logo-ofp"> <img src="https://www.onlineformapro.com/wp-content/uploads/2020/01/logo-03.svg"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+        </div>
+
+        <div class="jumbotron">
+            <h1>Defi JS - 15</h1>
+            <p>Créez une fonction qui accepte deux paramètres<br />
+                <li>si les deux paramètres sont des strings, additionnez-les comme s’ils étaient des numbers</li>
+                <li>si les deux paramètres sont des numbers, concaténez-les.</li>
+                <br /><b>Exemple:</b><br />
+                <li> add("7", "3") ➞ 10</li>
+                <li>add(7, 3) ➞ "73"</li>
+                <li> add("7", 3) ➞ null</li>
+                <br /> et afficher les resultats de la fonction suivant les 3 cas énoncés dans la page
+
+
+            </p>
+
+        </div>
+        <h2>Résultat</h2>
+        <div id="resultat">
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+        function add(a, b) {
+
+            let types = [typeof a, typeof b];
+            if (ArrayEquals(types, ['string', 'string'])) {
+                return parseInt(a) + parseInt(b);
+            } else if (ArrayEquals(types, ['number', 'number'])) {
+                return '' + a + b;
+            }
+
+            return null;
+        }
+
+
+
+        const addTernary = (a, b) => typeof a === 'string' ? (typeof b === 'string' ? ('' + a + b) : null) : (typeof a === 'number' ? (typeof b === 'number' ? (parseInt(a) + parseInt(b)) : null) : null);
+
+
+        const
+            target = document.getElementById('resultat'),
+            pre = createElement('pre'),
+            additions = [
+                ["7", "3"], [7, 3], ["7", 3], [7, "3"],
+
+            ];
+
+
+        target.appendChild(pre);
+
+
+        additions.forEach(args => {
+
+            let [a, b] = args;
+
+            pre.appendChild(
+                createElement('code', {}, [
+                    'add(',
+                    createElement('var',
+                        JSON.stringify(a)
+                    ),
+                    ', ',
+                    createElement('var',
+                        JSON.stringify(b)
+                    ),
+                    ') -> ',
+
+                    createElement('var', JSON.stringify(
+                        addTernary(a, b)
+                    )),
+                    createElement('br')
+                ])
+            );
+        });
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
