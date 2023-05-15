@@ -47,7 +47,7 @@
         </div>
         <h2>Résultat</h2>
         <div id="resultat">
-            <input type="number" id="numberOfYears"><input type="submit" value="Convertir" id="convert">
+            <input type="date" id="numberOfYears"><input type="submit" value="Convertir" id="convert">
             <br />
             <b>Vous êtes ici depuis : </b>
             <li>XXXXXXX secondes</li>
@@ -85,12 +85,9 @@
 
 
 
-        function diffDate(yearOfBirth) {
+        function diffDate(ts) {
 
-            let
-                date = new Date('' + yearOfBirth),
-                ts = +date,
-                remaining = NOW - ts, result = {};
+            let remaining = NOW - ts, result = {};
             for (let key in DIVIDERS) {
                 let divider = DIVIDERS[key], floor = Math.floor(remaining / divider);
                 remaining -= floor * divider;
@@ -112,31 +109,28 @@
         btn.addEventListener('click', e => {
             e.preventDefault();
 
+            let dateOfBirth = +new Date(yearOfBirth.value);
 
-            const inputData = JSON.parse(yearOfBirth.value || 'null');
-            if (typeof inputData !== 'number') {
-                return;
+            console.debug(dateOfBirth);
+
+
+            let
+                data = diffDate(dateOfBirth),
+                ul,
+                result = createElement('div', { class: 'row' }, [
+                    '<strong>Vous êtes ici depuis : </strong>',
+                    ul = createElement('ul', { class: 'list-group' })
+                ]);
+
+
+            for (let key in TRANSLATIONS) {
+                ul.appendChild(createElement('li', { class: 'list-group-item' },
+                    TRANSLATIONS[key].replace('%u', data[key])
+                ));
             }
-
-            if (inputData > 1970) {
-
-                let
-                    data = diffDate(inputData),
-                    ul,
-                    result = createElement('div', { class: 'row' }, [
-                        '<strong>Vous êtes ici depuis : </strong>',
-                        ul = createElement('ul', { class: 'list-group' })
-                    ]);
+            target.innerHTML = result.innerHTML;
 
 
-                for (let key in TRANSLATIONS) {
-                    ul.appendChild(createElement('li', { class: 'list-group-item' },
-                        TRANSLATIONS[key].replace('%u', data[key])
-                    ));
-                }
-                target.innerHTML = result.innerHTML;
-
-            }
 
 
 

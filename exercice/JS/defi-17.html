@@ -77,11 +77,10 @@
                 return true;
             }
 
-            console.debug(form);
+
 
             form.addEventListener('submit', e => {
                 e.preventDefault();
-                // e.stopPropagation();
 
                 let maphrase = document.querySelector('#maphrase').value;
 
@@ -92,12 +91,12 @@
 
                     target.classList.add('alert', 'alert-success');
 
-                    target.innerHTML = 'Votre phrase est bien in <strong>pangramme</strong>.';
+                    target.innerHTML = 'Votre phrase est bien un <strong>pangramme</strong>.';
 
 
                 } else {
                     target.classList.add('alert', 'alert-danger');
-                    target.innerHTML = 'Votre phrase n\'est pas in <strong>pangramme</strong>.';
+                    target.innerHTML = 'Votre phrase n\'est pas un <strong>pangramme</strong>.';
                 }
 
             })
