@@ -77,7 +77,7 @@
             form.addEventListener('submit', e => {
                 e.preventDefault();
                 let maphrase = form.elements.maphrase.value, result = 'Ou pas';
-                if (maphrase.indexOf('?') !== -1) {
+                if (maphrase.endsWith('?')) {
                     result = 'ok';
 
                     if (isUpper(maphrase)) {
