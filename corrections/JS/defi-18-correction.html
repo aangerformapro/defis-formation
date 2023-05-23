@@ -58,7 +58,7 @@
             </div>
             <div class="col-6 text-center">
                 <img src="https://dg8krxphbh767.cloudfront.net/exercises/bob.svg" alt="">
-                <div id="lareponsedebob"></div>
+                <div id="lareponsedebob" ></div>
             </div>
 
 
@@ -66,28 +66,22 @@
 
         </div>
         <script>
-            const
-                target = document.querySelector('#lareponsedebob'),
-                form = document.querySelector('#resultat form');
-            function isUpper(maphrase) {
-                return /[A-Z]/.test(maphrase) && maphrase.toUpperCase() === maphrase;
-            }
-            form.addEventListener('submit', e => {
-                e.preventDefault();
-                let maphrase = form.elements.maphrase.value, result = 'Ou pas';
-                if (maphrase.endsWith('?')) {
-                    result = 'ok';
-                    if (isUpper(maphrase)) {
-                        result = 'Calme-toi';
-                    }
-                } else if (isUpper(maphrase)) {
-                    result = 'Whoa, détends-toi !';
+            let lareponsedebob = document.getElementById("lareponsedebob")
+
+            document.getElementById("verifier").addEventListener("click", (e) => {
+                e.preventDefault()
+                let maphrase = document.getElementById("maphrase").value
+                if (maphrase === maphrase.toUpperCase() && maphrase.charAt(maphrase.length - 1) === '?') {
+                    lareponsedebob.innerHTML = "Calme-toi!"
+                } else if (maphrase === maphrase.toUpperCase()) {
+                    lareponsedebob.innerHTML = "Whoa, détends-toi !"
+                } else if (maphrase.charAt(maphrase.length - 1) === '?') {
+                    lareponsedebob.innerHTML = "ok"
+                } else {
+                    lareponsedebob.innerHTML = "Ou pas"
                 }
-                target.innerHTML = result;
-            });
 
-
-
+            })
         </script>
 </body>
 

@@ -138,7 +138,7 @@
             <div class="col-12 text-center row justify-content-center">
                 <form action="#" style="width:100%; max-width: 400px;">
                     <input type="text" class="form-control my-3" id="nompersonnage"
-                        placeholder="Saisissez le nom de votre personnage">
+                        placeholder="Saisissez le nom de votre personnage" required>
                     <input type="submit" class="btn btn-primary" value="Générer votre personnage"
                         id="genererPersonnage">
                 </form>
@@ -149,9 +149,9 @@
 
 
         </div>
-        <script src="./utils.js"></script>
         <script type="module">
 
+            import { createElement } from "./utils.js";
 
             //Gestion de la modal
 
@@ -260,26 +260,16 @@
                             createElement('span', { class: 'label' }, 'points de vie'),
                             createElement('span', { class: 'value' }, JSON.stringify(this.hp))
                         ])));
-
-
-                    console.debug(this);
                 }
             }
 
-            btn.addEventListener('click', () => {
-
+            btn.addEventListener('click', e => {
+                e.preventDefault();
                 const { value } = nompersonnage;
 
                 if (value) {
 
-                    let perso;
-
-                    if (players[value]) {
-                        perso = players[value];
-                    } else {
-                        perso = players[value] = new Personnage(value);
-                    }
-
+                    let perso = players[value] ??= new Personnage(value);
 
                     persoElement.innerHTML = '';
                     persoElement.appendChild(perso.element);

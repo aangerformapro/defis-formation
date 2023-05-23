@@ -52,82 +52,90 @@
 
 
     </div>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/cotton123236/zoomist@latest/dist/zoomist.min.js"></script> -->
 
-    <script src="./utils.js"></script>
-    <script>
+
+    <style>
+        #resultat {
+            background-position: 50% 50%;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script type="module">
+
+        //  import { createElement } from "./utils.js";
 
         const
             resultat = document.querySelector('#resultat'),
-            img = document.querySelector('#resultat img'),
-            figure = createElement('figure', { class: 'zoom', style: 'background-image: url(' + img.src + ');' }),
-            { offsetWidth, offsetHeight } = img;
+            image = document.querySelector('#resultat img');
+        let scale = 1, current = { x: 0, y: 0 }, initial = { x: 0, y: 0 }, clicked = false;
 
 
-        let width = offsetWidth, height = offsetHeight, percent = 100;
+        function setPos() {
+            return `translateX(${current.x}px) translateY(${current.y}px) scale(${scale})`;
+        }
 
-        figure.style.width = width + "px";
-        figure.style.height = height + "px";
 
-        resultat.appendChild(figure);
-        figure.appendChild(img);
 
-        // figure.addEventListener('mousemove', e => {
-        //     const { offsetX, offsetY } = e;
-        //     let
-        //         x = (offsetX / img.offsetWidth) * 100,
-        //         y = (offsetY / img.offsetHeight) * 100;
+        function drag(e) {
 
-        //     figure.style.backgroundPosition = `${x}% ${y}%`;
+            e.preventDefault();
+            if (!clicked) {
+                return;
+            }
 
-        // });
+            current.x = e.clientX - initial.x;
+            current.y = e.clientY - initial.y;
 
-        figure.addEventListener('wheel', e => {
-            let zoomIn = Math.sign(e.deltaY) === -1;
 
-            percent += Math.sign(e.deltaY) * -10;
+            initial.x = current.x;
+            initial.y = current.y;
 
-            percent = Math.max(10, percent);
-            figure.style.backgroundSize = percent + '%';
+
+            image.style.transform = setPos();
+        }
+
+
+
+
+        image.addEventListener('mousedown', e => {
+            e.preventDefault();
+
+            clicked = true;
+            initial.x = e.clientX;
+            initial.y = e.clientY;
+
+        }, false);
+
+
+        image.addEventListener('mousemove', drag, false);
+
+
+
+        image.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            clicked = false;
+        }, false);
+
+        image.addEventListener('wheel', e => {
+            e.preventDefault();
+
+            const { offsetX, offsetY, deltaY } = e;
+
+            scale += .1 * (Math.sign(e.deltaY) * -1);
+            if (scale < .1) {
+                scale = 1;
+            }
+
+            image.style.transform = setPos();
+
+
         });
 
 
-
     </script>
-    <style>
-        figure.zoom {
-            background-position: 50% 50%;
-            position: relative;
-            background-repeat: no-repeat;
-
-
-            overflow: scroll;
-        }
-
-
-        #resultat {
-            position: relative;
-        }
-
-        #resultat img {
-            overflow: hidden;
-            cursor: zoom-in;
-        }
-
-        figure.zoom img {
-            opacity: 0;
-        }
-
-        /* figure.zoom img:hover {
-            opacity: 0;
-        } */
-
-        figure.zoom img {
-            transition: opacity 0.5s;
-            display: block;
-            width: 100%;
-        }
-    </style>
-
 </body>
 
 </html>
