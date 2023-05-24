@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Défi JS - 22</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+
+            <div class="logo-acs"><img
+                    src="https://www.accesscodeschool.fr/wp-content/uploads/2018/10/logo_acs_noir.png"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+
+            <div class="logo-ofp"> <img src="https://www.onlineformapro.com/wp-content/uploads/2020/01/logo-03.svg"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+        </div>
+
+
+
+
+        <div class="jumbotron">
+            <h1 class="mb-3" style="width:100%">Defi JS - 22</h1>
+            <p>Dans ce défi il vous sera demandé dans un premier temps de créer deux tableaux, un contenant une liste
+                des prénoms des apprenant, ainsi qu'un tableau vide.</p>
+            <p>Su notre page nous aurons pour affichage :
+            <ul>
+                <li>Le tableau des apprenants</li>
+                <li>Le bouton "Choisir un apprenant"</li>
+                <li>Le tableau des apprenants déjà choisi</li>
+            </ul>
+            </p>
+            <p>Au clique du bouton, "Choisi un apprenant", le programme va alors chercher aléatoirement un apprenant
+                dans le tableau, afficher son prénom sur la page et par la suite l'ajouter dans notre tableau vide.</p>
+            <p>A chaque clique sur le bouton un nouvel apprenant sera choisi, cependant le tableau lui devra être réduit
+                des apprenants déjà selectionnés.</p>
+        </div>
+
+        <div id="resultat">
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <script type="module">
+
+
+        import { createElement } from "./utils.js";
+
+
+        const
+            resultat = document.querySelector("#resultat"),
+            prenoms = [
+                'Nargis', 'Aymeric', 'Fabien', 'Anisse', 'Célia', 'Jordan F',
+                'Jordan L', 'Loris', 'Oguzhan', 'Quentin', 'Kévin', 'Bryan'
+            ],
+            button = createElement('<button type="button" class="btn btn-outline-primary btn-lg btn-block"/>', {
+
+                onclick() {
+                    if (apprenants.length === 0) {
+                        return alert("Il n'y a plus d'apprenants restant !");
+                    }
+                    choisis.add(apprenants.pull());
+
+                }
+
+
+            }, "Choisir un apprenant");
+        let
+            apprenants = prenoms.map(prenom => createElement('li', {
+                class: "list-group-item",
+                data: { prenom }
+            }, prenom)),
+            choisis = [],
+            choisisContainer = createElement('<ul class="list-group list-group-horizontal  list-group-flush">'),
+            last = createElement('<div class="ml-3">', 'Aucun');
+
+
+
+        choisis.add = function (...args) {
+
+
+
+            args.forEach(elem => {
+                choisisContainer.appendChild(elem);
+            });
+            return this.push(...args);
+        };
+
+        apprenants.pull = function () {
+            let index = Math.floor(Math.random() * this.length), elem = this[index];
+            this.splice(index, 1);
+            last.innerHTML = last.dataset.prenom = elem.dataset.prenom;
+            return elem;
+        };
+
+
+        resultat.appendChild(createElement(
+            '<div class="card text-center my-3"/>', [
+            '<div class="card-header">Apprenants</div>',
+            createElement(
+                '<ul class="list-group list-group-horizontal  list-group-flush">',
+                apprenants
+            )
+        ]));
+        resultat.appendChild(button);
+
+        resultat.appendChild(createElement('<div class="d-flex my-3"/>', [
+            '<div class=""><strong>Dernier apprenant choisi:</strong></div>',
+            last
+        ]));
+
+
+        resultat.appendChild(createElement(
+            '<div class="card text-center my-3"/>', [
+            '<div class="card-header">Apprenants Choisis</div>',
+            choisisContainer
+        ]));
+
+
+
+    </script>
+    <style>
+        .list-group:empty::after {
+
+            content: 'Liste vide.';
+            display: block;
+            width: 100%;
+            padding: .75rem 1.25rem;
+
+        }
+    </style>
+
+</body>
+
+</html>
