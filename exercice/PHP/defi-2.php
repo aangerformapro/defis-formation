@@ -41,7 +41,7 @@
                     <?php
                     for ($i = 1; $i <= 10; ++$i)
                     {
-                        printf('<option value="%s">%s</option>', $i, $i);
+                        printf('<option value="%u">%u</option>', $i, $i);
                     }
                     ?>
                 </select>
@@ -56,7 +56,8 @@
                     <div>
                         <var class="me-2"><?= $j; ?></var> x <var class="me-2"><?= $i; ?></var> = <var class="me-2"><?= $i * $j; ?></var>
                     </div>
-                <?php endfor; endif; ?>
+                <?php endfor;
+            endif; ?>
         </div>
 
 
