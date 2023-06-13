@@ -48,19 +48,15 @@
                 <button type="submit">Afficher la table de multiplication</button>
             </form>
 
-            <?php if (is_numeric($_GET['table'] ?? ''))
-            {
+            <?php if (is_numeric($_GET['table'] ?? '')):
+
                 $j = (int) $_GET['table'];
 
-                for ($i = 1; $i <= 10; ++$i)
-                {?>
+                for ($i = 1; $i <= 10; ++$i): ?>
                     <div>
-                        <var><?php echo $j; ?></var> x <var><?php echo $i; ?></var> = <var><?php echo $i * $j; ?></var>
+                        <var class="me-2"><?= $j; ?></var> x <var class="me-2"><?= $i; ?></var> = <var class="me-2"><?= $i * $j; ?></var>
                     </div>
-                <?php
-                }
-            }
-                    ?>
+                <?php endfor; endif; ?>
         </div>
 
 
