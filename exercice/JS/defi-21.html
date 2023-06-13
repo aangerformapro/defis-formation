@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Défi JS - 21</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+
+            <div class="logo-acs"><img
+                    src="https://www.accesscodeschool.fr/wp-content/uploads/2018/10/logo_acs_noir.png"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+
+            <div class="logo-ofp"> <img src="https://www.onlineformapro.com/wp-content/uploads/2020/01/logo-03.svg"
+                    style="max-height: 66px; max-width: 200px;" />
+            </div>
+
+        </div>
+
+
+
+
+        <div class="jumbotron">
+            <h1 class="mb-3" style="width:100%">Defi JS - 21</h1>
+            <p>Dans ce défi il vous sera demandé dans un premier temps de créer un tableau avec les prénoms de tous les
+                apprenants.</p>
+            <p>Puis vous devrez mettre en place une boite de dialogue invitant les utilisateurs à saisir un prénom.</p>
+            <p>Le programme fera alors la vérification pour voir si le prénom saisi se trouve bien dans le tableau créé
+                initialement et affichera sur la page le message suivant : "[Prénom saisi] appartient bien à la
+                promotion".</p>
+            <p>Faites bien attention, il arrive que certaines fois des personnes saisissent des prénoms avec ou sans
+                majuscules.</p>
+        </div>
+
+        <div id="resultat">
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+    <script type="module">
+
+        const
+            isString = (param) => typeof param === 'string',
+            isPlainObject = (param) => param instanceof Object && Object.getPrototypeOf(param) === Object.prototype;
+
+
+        function isHTML(param) {
+            return isString(param) && param.startsWith('<') && param.endsWith('>');
+        }
+
+
+        function sansAccent(str) {
+            let accent = [
+                /[\300-\306]/g, /[\340-\346]/g, // A, a
+                /[\310-\313]/g, /[\350-\353]/g, // E, e
+                /[\314-\317]/g, /[\354-\357]/g, // I, i
+                /[\322-\330]/g, /[\362-\370]/g, // O, o
+                /[\331-\334]/g, /[\371-\374]/g, // U, u
+                /[\321]/g, /[\361]/g, // N, n
+                /[\307]/g, /[\347]/g, // C, c
+            ], noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
+
+
+            for (var i = 0; i < accent.length; i++) {
+                str = str.replace(accent[i], noaccent[i]);
+            }
+
+            return str;
+        }
+        function html2element(html) {
+            if (isString(html) && html.length > 0) {
+                let template = createElement('template', html),
+                    content = template.content;
+                if (content.childNodes.length === 0) {
+                    return;
+                }
+                else if (content.childNodes.length > 1) {
+                    return [...content.childNodes];
+                }
+                return content.childNodes[0];
+            }
+        }
+
+        function createElement(tag, params = null, html = '') {
+
+            if (typeof tag !== 'string') {
+                throw new TypeError('tag must be a String');
+            }
+
+            if (
+                typeof params === 'string' ||
+                params instanceof Element ||
+                Array.isArray(params)
+            ) {
+                html = params;
+                params = {};
+            }
+
+            params ??= {};
+            html ??= '';
+
+
+            const elem = isHTML(tag) ? html2element(tag) : document.createElement(tag);
+
+            for (let attr in params) {
+                let value = params[attr];
+                if (attr === 'html') {
+                    html = value;
+                    continue;
+                }
+                if (attr === 'data') {
+                    if (isPlainObject(value)) {
+                        parseDataElement(value).forEach(item => {
+                            const [key, value] = item;
+                            elem.setAttribute(key, value);
+                        });
+                    }
+                    continue;
+                }
+
+                if (typeof value === 'string') {
+                    elem.setAttribute(attr, value);
+                }
+                else {
+                    elem[attr] = value;
+                }
+            }
+
+            if (html instanceof Element || isString(html)) {
+                html = [html];
+            }
+
+            if (Array.isArray(html)) {
+
+                html.forEach(item => {
+                    if (item instanceof Element) {
+                        elem.appendChild(item);
+                    } else if (typeof item === 'string') {
+                        elem.innerHTML += item;
+                    }
+                });
+            }
+
+            return elem;
+        }
+
+
+
+        const
+            result = document.querySelector("#resultat"),
+            prenoms = [
+                'Nargis', 'Aymeric', 'Fabien', 'Anisse', 'Célia', 'Jordan F',
+                'Jordan L', 'Loris', 'Oguzhan', 'Quentin', 'Kévin', 'Bryan'
+            ].map(prenom => sansAccent(prenom.split(/\s+/)[0].toLowerCase())),
+
+            button = createElement('<button type="button" class="btn btn-primary"/>', {
+                onclick(e) {
+                    e.preventDefault();
+
+                    typeName().then(prenom => {
+
+                        if (prenoms.some(apprenant => sansAccent(prenom.toLowerCase()) === apprenant)) {
+                            resultat.insertBefore(
+                                createElement(
+                                    '<div class="alert alert-success text-center" role="alert"/>',
+                                    `<strong>${prenom}</strong> appartient bien à la promotion.`
+                                ),
+                                resultat.lastElementChild
+                            );
+                        } else {
+                            resultat.insertBefore(
+                                createElement(
+                                    '<div class="alert alert-danger text-center" role="alert"/>',
+                                    `<strong>${prenom}</strong> n'appartient pas à la promotion.`
+                                ),
+                                resultat.lastElementChild
+                            );
+                        }
+                    });
+                }
+            }, 'Ajouter un prénom');
+
+        async function typeName() {
+            return prompt('Veuillez entrer un prénom.') ?? "";
+        }
+
+        resultat.appendChild(createElement('<div class="text-center my-3" />', button));
+
+
+
+
+    </script>
+
+</body>
+
+</html>
