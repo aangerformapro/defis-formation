@@ -57,8 +57,10 @@
                     <div>
                         <var><?php echo $j; ?></var> x <var><?php echo $i; ?></var> = <var><?php echo $i * $j; ?></var>
                     </div>
-                <?php }
-                }?>
+                <?php
+                }
+            }
+                    ?>
         </div>
 
 
