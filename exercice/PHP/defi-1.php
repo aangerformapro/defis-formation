@@ -55,16 +55,13 @@
             <?php
 
             if (isset($_GET['nom']))
-            {
-                ?>
+            { ?>
 
                 <div class="alert alert-success alert-dismissible">
                     Vous vous appelez <?php echo $_GET['prenom']; ?> <?php echo $_GET['nom']; ?> et vous avez <?php echo $_GET['age']; ?> ans
                 </div>
                
-            <?php
-            }
-            ?>
+            <?php } ?>
 
             </div>
         </div>
