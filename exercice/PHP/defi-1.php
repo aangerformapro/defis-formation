@@ -52,16 +52,13 @@
             </div>
             <div class="col-6">
 
-            <?php
-
-            if (isset($_GET['nom']))
-            { ?>
+            <?php if (isset($_GET['nom'])):  ?>
 
                 <div class="alert alert-success alert-dismissible">
-                    Vous vous appelez <?php echo $_GET['prenom']; ?> <?php echo $_GET['nom']; ?> et vous avez <?php echo $_GET['age']; ?> ans
+                    Vous vous appelez <?= $_GET['prenom'] . ' ' . $_GET['nom']; ?> et vous avez <?= $_GET['age']; ?> ans
                 </div>
                
-            <?php } ?>
+            <?php endif; ?>
 
             </div>
         </div>
