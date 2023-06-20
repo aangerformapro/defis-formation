@@ -1,4 +1,50 @@
-<!DOCTYPE html>
+<?php
+declare(strict_types=1);
+
+// var_dump($_GET);
+
+$signes      = [
+    'add'       => '+',
+    'substract' => '-',
+    'multiplie' => '&times;',
+    'divise'    => '&divide;',
+];
+
+$operations  = [
+    'add'       => fn (int $a, int $b) => $a + $b,
+    'substract' => fn (int $a, int $b) => $a - $b,
+    'multiplie' => fn (int $a, int $b) => $a * $b,
+    'divise'    => fn (int $a, int $b) => 0 === $b ? '&infin;' : round($a / $b, 2),
+];
+
+$printResult = false;
+$signe       = '';
+
+if (
+    is_numeric($_GET['valeur01'] ?? '')
+        && is_numeric($_GET['valeur02'] ?? '')
+        && isset($_GET['operation'])
+) {
+    [
+        $a,
+        $b,
+        $operation,
+    ]   = [
+        (int) $_GET['valeur01'],
+        (int) $_GET['valeur02'],
+        $_GET['operation'],
+    ];
+
+    $fn = $operations[$operation] ?? null;
+
+    if ($fn instanceof \Closure)
+    {
+        $printResult = true;
+        $signe       = $signes[$operation];
+        $value       = $fn($a, $b);
+    }
+}
+?><!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -36,10 +82,10 @@
                 <form method="GET">
                     <div class="form-group">
                         <input type="number" placeholder="Saisissez la première valeur" name="valeur01"
-                            class="form-control"></input><br />
+                            class="form-control" value="<?= $_GET['valeur01'] ?? ''; ?>"></input><br />
                         <input type="number" placeholder="Saisissez la seconde valeur" name="valeur02"
-                            class="form-control"></input><br />
-                        <label class="form-check-label" for="exampleCheck1">Choisissez un opérateur</label><br />
+                            class="form-control" value="<?= $_GET['valeur02'] ?? ''; ?>"></input><br />
+                        <label class="form-check-label" for="operation">Choisissez un opérateur</label><br />
                         <button name="operation" value="add" class="btn btn-primary">Addition</button>
                         <button name="operation" value="substract" class="btn btn-primary">Soustraction</button>
                         <button name="operation" value="multiplie" class="btn btn-primary">Multiplication</button>
@@ -48,7 +94,12 @@
                 </form>
             </div>
             <div class="col-6">
-            
+                <?php if($printResult): ?>
+                    <h5>Résultat:</h5>
+                    <code>
+                        <?php printf('%d %s %d = %s', $a, $signe, $b, $value); ?>
+                    </code>
+                <?php endif; ?>
             </div>
         </div>
     </div>

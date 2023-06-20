@@ -39,18 +39,28 @@
             <form method="get">
                 <select name="table">
                     <?php
+                    $j = null;
+
+                    if (is_numeric($_GET['table'] ?? ''))
+                    {
+                        $j = (int) $_GET['table'];
+                    }
+
                     for ($i = 1; $i <= 10; ++$i)
                     {
-                        printf('<option value="%u">%u</option>', $i, $i);
+                        printf(
+                            '<option value="%u"%s>%u</option>',
+                            $i,
+                            $j === $i ? ' selected' : '',
+                            $i
+                        );
                     }
                     ?>
                 </select>
                 <button type="submit">Afficher la table de multiplication</button>
             </form>
 
-            <?php if (is_numeric($_GET['table'] ?? '')):
-
-                $j = (int) $_GET['table'];
+            <?php if (is_int($j)):
 
                 for ($i = 1; $i <= 10; ++$i): ?>
                     <div>
