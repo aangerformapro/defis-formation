@@ -47,15 +47,14 @@
 
                 $x = (int) $_GET['longueur'];
                 $y = (int) $_GET['largeur'];
-                ?>
+
+                if($x >= 0 && $y >= 0):?>
 
                 <h3>L'aire du rectangle</h3>
                 <code>
                     <?= $x . ' &times; ' . $y . ' = ' . calculeAire($x, $y); ?>
-
-
                 </code>
-            <?php endif; ?>
+            <?php endif; endif; ?>
             
             
          
