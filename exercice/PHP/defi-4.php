@@ -24,16 +24,40 @@
         <div class="jumbotron">
             <h1>Défi PHP - 04</h1>
             <p>
-                Créer une fonction permettant de calculer automatiquement l'air d'un rectangle.
+                Créer une fonction permettant de calculer automatiquement l'aire d'un rectangle.
             </p>
         </div>
         <div id="resultat">
             <form method="GET">
                 <input type="text" name="longueur" placeholder="Saisisez la longueur">
                 <input type="text" name="largeur" placeholder="Saisisez la largeur">
-                <button>Calculer l'air</button>
+                <button>Calculer l'aire</button>
             </form>
 
+
+
+            <?php
+
+            function calculeAire(int|float $a, int|float $b): int|float
+            {
+                return $a * $b;
+            }
+
+            if(is_numeric($_GET['longueur'] ?? '') && is_numeric($_GET['largeur'] ?? '')):
+
+                $x = (int) $_GET['longueur'];
+                $y = (int) $_GET['largeur'];
+                ?>
+
+                <h3>L'aire du rectangle</h3>
+                <code>
+                    <?= $x . ' &times; ' . $y . ' = ' . calculeAire($x, $y); ?>
+
+
+                </code>
+            <?php endif; ?>
+            
+            
          
         </div>
 
