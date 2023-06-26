@@ -43,7 +43,10 @@
                 return $a * $b;
             }
 
-            if(is_numeric($_GET['longueur'] ?? '') && is_numeric($_GET['largeur'] ?? '')):
+            if(
+                is_numeric($_GET['longueur'] ?? '')
+                && is_numeric($_GET['largeur'] ?? '')
+            ):
 
                 $x = (int) $_GET['longueur'];
                 $y = (int) $_GET['largeur'];
@@ -52,7 +55,7 @@
 
                 <h3>L'aire du rectangle</h3>
                 <code>
-                    <?= $x . ' &times; ' . $y . ' = ' . calculeAire($x, $y); ?>
+                    <?php echo $x . ' &times; ' . $y . ' = ' . calculeAire($x, $y); ?>
                 </code>
             <?php endif; endif; ?>
             
