@@ -232,7 +232,10 @@
         acs_etudiants ?
       </p>
       <p>Réponse</p>
+      <code>
+        SELECT nom, prenom FROM acs_etudiants WHERE EXISTS (SELECT * FROM acs_examens WHERE acs_examens.id_etudiant = acs_etudiants.id_etudiant)
 
+      </code>
 
 
       <p>Exercice 07</p>
@@ -242,6 +245,12 @@
         deux examens dans une colonne <strong>moyenne</strong> ?
       </p>
       <p>Réponse</p>
+      <code>
+        SELECT nom, prenom, AVG(note) as moyenne FROM acs_etudiants 
+        INNER JOIN acs_examens ON acs_examens.id_etudiant = acs_etudiants.id_etudiant
+        WHERE acs_etudiants.id_etudiant = 30
+        
+      </code>
 
       <p>Exercice 08</p>
       <p>
@@ -250,6 +259,11 @@
         ?
       </p>
       <p>Réponse</p>
+      <code>
+        SELECT nom, prenom FROM acs_etudiants
+        INNER JOIN acs_examens ON acs_examens.id_etudiant = acs_etudiants.id_etudiant
+        ORDER BY note DESC LIMIT 3
+      </code>
 
     </div>
   </div>
