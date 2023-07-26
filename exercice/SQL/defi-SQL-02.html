@@ -177,11 +177,12 @@
         participés à au moins un examen ?
       </p>
       <p>Réponse</p>
-      <code>
-          SELECT id_etudiant FROM acs_examens GROUP BY id_etudiant
-          # ou
-          SELECT DISTINCT id_etudiant FROM acs_examens
-        </code>
+      <p class="answer">
+        SELECT id_etudiant FROM acs_examens GROUP BY id_etudiant
+      </p>
+      <p class="answer">
+        SELECT DISTINCT id_etudiant FROM acs_examens
+      </p>
 
       <p>Exercice 02</p>
       <p>
@@ -190,18 +191,18 @@
       </p>
       <p>Réponse</p>
 
-      <code>
-          SELECT DISTINCT COUNT(id_etudiant) FROM acs_examens; 
-        </code>
+      <p class="answer">
+        SELECT DISTINCT COUNT(id_etudiant) FROM acs_examens;
+      </p>
 
       <p>Exercice 03</p>
       <p>
         Quelle requête utiliser pour calculer la moyenne de l'examen portant
         l'id : <strong>45</strong> ?
       </p>
-      <code>
-          SELECT AVG(note) FROM acs_examens WHERE id_examen = 45; 
-        </code>
+      <p class="answer">
+        SELECT AVG(note) FROM acs_examens WHERE id_examen = 45;
+      </p>
 
       <p>Exercice 04</p>
       <p>
@@ -209,9 +210,9 @@
         portant l'id : <strong>87</strong> ?
       </p>
       <p>Réponse</p>
-      <code>
-          SELECT MAX(note) FROM `acs_examens` WHERE id_examen = 87; 
-        </code>
+      <p class="answer">
+        SELECT MAX(note) FROM acs_examens WHERE id_examen = 87;
+      </p>
 
       <p>Exercice 05</p>
       <p>
@@ -220,22 +221,24 @@
         <strong>plus de 12 à l'examen 87</strong> ?
       </p>
       <p>Réponse</p>
-      <code>
-          SELECT id_etudiant FROM `acs_examens` WHERE (id_examen = 87 AND note > 12) OR (id_examen = 45 AND note > 11); 
-        </code>
+      <p class="answer">
+        SELECT DISTINCT id_etudiant FROM acs_examens
+        WHERE (id_examen = 45 AND note > 11) OR (id_examen = 87 AND note > 12)
+      </p>
 
       <p>Exercice 06</p>
       <p>
         Quelle requête utiliser pour afficher les enregistrement de la table
-        <code>acs_examens</code> avec le prenom et le nom de l'étudiant,
+        <code class="answer">acs_examens</code> avec le prenom et le nom de l'étudiant,
         uniquement quand les étudiants sont présents dans la table
         acs_etudiants ?
       </p>
       <p>Réponse</p>
-      <code>
-        SELECT nom, prenom FROM acs_etudiants WHERE EXISTS (SELECT * FROM acs_examens WHERE acs_examens.id_etudiant = acs_etudiants.id_etudiant)
 
-      </code>
+      <p class="answer">
+        SELECT * FROM acs_etudiants
+        INNER JOIN acs_examens ON acs_etudiants.id_etudiant = acs_examens.id_etudiant
+      </p>
 
 
       <p>Exercice 07</p>
@@ -245,12 +248,13 @@
         deux examens dans une colonne <strong>moyenne</strong> ?
       </p>
       <p>Réponse</p>
-      <code>
-        SELECT nom, prenom, AVG(note) as moyenne FROM acs_etudiants 
-        INNER JOIN acs_examens ON acs_examens.id_etudiant = acs_etudiants.id_etudiant
+      <p class="answer">
+        SELECT nom, prenom, AVG(note) as moyenne FROM acs_etudiants
+        INNER JOIN acs_examens
+        ON acs_examens.id_etudiant = acs_etudiants.id_etudiant
         WHERE acs_etudiants.id_etudiant = 30
-        
-      </code>
+
+      </p>
 
       <p>Exercice 08</p>
       <p>
@@ -258,12 +262,15 @@
         meilleur au moins bon, avec le prenom et le nom de l'étudiant associé
         ?
       </p>
-      <p>Réponse</p>
-      <code>
+      <p class="answer">
+
         SELECT nom, prenom FROM acs_etudiants
-        INNER JOIN acs_examens ON acs_examens.id_etudiant = acs_etudiants.id_etudiant
+        INNER JOIN acs_examens
+        ON acs_etudiants.id_etudiant = acs_examens.id_etudiant
         ORDER BY note DESC LIMIT 3
-      </code>
+
+      </p>
+
 
     </div>
   </div>
@@ -272,7 +279,8 @@
     .answer {
       font-weight: bold;
       background: #e6e6e6;
-      padding: 10px
+      padding: 10px;
+      margin: 16px 0;
     }
   </style>
 </body>
