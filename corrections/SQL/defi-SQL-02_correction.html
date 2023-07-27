@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Défi SQL - 02</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="d-flex justify-content-between mb-3">
+        <div class="logo-acs">
+          <img
+            src="https://www.accesscodeschool.fr/wp-content/uploads/2018/10/logo_acs_noir.png"
+            style="max-height: 66px; max-width: 200px"
+          />
+        </div>
+
+        <div class="logo-ofp">
+          <img
+            src="https://www.onlineformapro.com/wp-content/uploads/2020/01/logo-03.svg"
+            style="max-height: 66px; max-width: 200px"
+          />
+        </div>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Défi SQL - 02</h1>
+        <p>
+          Ci-après les deux tables à utiliser pour la deuxième partie des
+          exercices.
+        </p>
+        <div class="row">
+          <div class="col-12 col-md-5">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <caption>
+                  Table : acs_etudiants
+                </caption>
+                <thead>
+                  <tr>
+                    <th>id_etudiant</th>
+                    <th>prenom</th>
+                    <th>nom</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>30</td>
+                    <td>Joseph</td>
+                    <td>Biblo</td>
+                  </tr>
+                  <tr>
+                    <td>31</td>
+                    <td>Paul</td>
+                    <td>Bismuth</td>
+                  </tr>
+                  <tr>
+                    <td>32</td>
+                    <td>Jean</td>
+                    <td>Michel</td>
+                  </tr>
+                  <tr>
+                    <td>33</td>
+                    <td>Ted</td>
+                    <td>Bundy</td>
+                  </tr>
+                  <tr>
+                    <td>34</td>
+                    <td>Caroline</td>
+                    <td>Martinez</td>
+                  </tr>
+                  <tr>
+                    <td>35</td>
+                    <td>Joséphine</td>
+                    <td>Henry</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-12 col-md-7">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <caption>
+                  Table : acs_examens
+                </caption>
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>id_examen</th>
+                    <th>id_etudiant</th>
+                    <th>matiere</th>
+                    <th>note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>788</td>
+                    <td>45</td>
+                    <td>30</td>
+                    <td>Histoire-Geographie</td>
+                    <td>10.5</td>
+                  </tr>
+                  <tr>
+                    <td>789</td>
+                    <td>87</td>
+                    <td>33</td>
+                    <td>Mathématiques</td>
+                    <td>14</td>
+                  </tr>
+                  <tr>
+                    <td>790</td>
+                    <td>87</td>
+                    <td>34</td>
+                    <td>Mathématiques</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>791</td>
+                    <td>45</td>
+                    <td>31</td>
+                    <td>Histoire-Geographie</td>
+                    <td>15.5</td>
+                  </tr>
+                  <tr>
+                    <td>792</td>
+                    <td>45</td>
+                    <td>32</td>
+                    <td>Histoire-Geographie</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>793</td>
+                    <td>87</td>
+                    <td>31</td>
+                    <td>Mathématiques</td>
+                    <td>14</td>
+                  </tr>
+                  <tr>
+                    <td>794</td>
+                    <td>45</td>
+                    <td>33</td>
+                    <td>Histoire-Geographie</td>
+                    <td>9.5</td>
+                  </tr>
+                  <tr>
+                    <td>795</td>
+                    <td>45</td>
+                    <td>36</td>
+                    <td>Histoire-Geographie</td>
+                    <td>13</td>
+                  </tr>
+                  <tr>
+                    <td>796</td>
+                    <td>45</td>
+                    <td>34</td>
+                    <td>Histoire-Geographie</td>
+                    <td>17</td>
+                  </tr>
+                  <tr>
+                    <td>797</td>
+                    <td>87</td>
+                    <td>30</td>
+                    <td>Mathématiques</td>
+                    <td>7.5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="resultat">
+        <p>Exercice 01</p>
+        <p>
+          Quelle requête utiliser pour afficher l'id des étudiants qui ont
+          participés à au moins un examen ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT  DISTINCT id_etudiant FROM acs_examens;</p>
+        <p>Exercice 02</p>
+        <p>
+          Quelle requête utiliser pour compter le nombre d'étudiants qui ont
+          participés à au moins un examen ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT COUNT(DISTINCT id_etudiant) FROM acs_examens;</p>
+        <p>Exercice 03</p>
+        <p>
+          Quelle requête utiliser pour calculer la moyenne de l'examen portant
+          l'id : <strong>45</strong> ?
+        </p>
+        <p class="answer">SELECT AVG(note) FROM acs_examens WHERE id_examen = 45;</p>
+        <p>Exercice 04</p>
+        <p>
+          Quelle requête utiliser pour récupérer la meilleure note de l'examen
+          portant l'id : <strong>87</strong> ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT MAX(note) FROM acs_examens WHERE id_examen = 87;</p>
+        <p>Exercice 05</p>
+        <p>
+          Quelle requête utiliser pour afficher l'id des étudiants qui ont eu
+          <strong>plus de 11 à l'examen 45</strong> ou
+          <strong>plus de 12 à l'examen 87</strong> ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">
+          SELECT DISTINCT id_etudiant FROM acs_examens WHERE (id_examen = 45
+          AND note > 11) OR (id_examen = 87 AND note > 12);
+        </p>
+        <p>Exercice 06</p>
+        <p>
+          Quelle requête utiliser pour afficher les enregistrement de la table
+          <code>acs_examens</code> avec le prenom et le nom de l'étudiant,
+          uniquement quand les étudiants sont présents dans la table
+          acs_etudiants ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT nom, prenom FROM acs_examens INNER JOIN acs_etudiants ON acs_examens.id_etudiant = acs_etudiants.id_etudiant;</p>
+        <p>Ou alors avec cette méthode</p>
+        <p class="answer">SELECT nom, prenom FROM acs_examens INNER JOIN acs_etudiants WHERE acs_examens.id_etudiant = acs_etudiants.id_etudiant;</p>
+        <p>Exercice 07</p>
+        <p>
+          Quelle requête utiliser pour afficher uniquement le nom et le prenom
+          de l'étudiant avec l'id : <strong>30</strong> avec la moyenne de ses
+          deux examens dans une colonne <strong>moyenne</strong> ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT nom, prenom, AVG(note) as moyenne FROM acs_examens INNER JOIN acs_etudiants WHERE acs_examens.id_etudiant = acs_etudiants.id_etudiant AND acs_etudiants.id_etudiant = 30;</p>
+        <p>Exercice 08</p>
+        <p>
+          Quelle requête utiliser pour afficher les 3 meilleures examens, du
+          meilleur au moins bon, avec le prenom et le nom de l'étudiant associé
+          ?
+        </p>
+        <p>Réponse</p>
+        <p class="answer">SELECT * FROM acs_examens INNER JOIN acs_etudiants WHERE acs_examens.id_etudiant = acs_etudiants.id_etudiant ORDER BY acs_examens.note DESC LIMIT 3;</p>
+      </div>
+    </div>
+
+    <style>
+        .answer{font-weight:bold; background:#e6e6e6; padding:10px}
+    </style>
+  </body>
+</html>
